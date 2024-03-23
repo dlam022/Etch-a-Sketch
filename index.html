@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css" >
+    <!-- <script src="index.js"></script> -->
+    <title>Document</title>
+</head>
+<body>
+    <div class="title">
+        <h1>Etch-a-Sketch</h1>
+    </div>
+
+    <div class="helper-bar"> Color:
+        <input type="color" id="colorpicker" value="#000000">
+        <button id="clear-button">clear</button>
+        <button id="grid-size">Grid Size</button>
+    </div>
+
+    <div id="outside-container">
+
+    </div>
+
+    <script>
+        const outsideDiv = document.getElementById('outside-container')
+        const colorPicker = document.getElementById('colorpicker');
+        const gridSize = document.getElementById('grid-size');
+        const clearBtn = document.getElementById('clear-button');
+
+        let input;
+        let checkInt;
+
+        alert("Enter a grid size to start");
+
+        gridSize.addEventListener('click', () => {
+            do{
+                input = window.prompt("Enter the prefer grid size from 1 - 64");
+                checkInt = parseInt(input);
+                if(isNaN(checkInt)) {
+                    alert("Error, enter a number from 1 - 64");
+                }
+            }
+            while(isNaN(checkInt));
+            clearGrid();
+            makeRows(input, input);
+        })
+
+
+        function makeRows(rows, column) {
+            for(let i = 0; i < rows; i++) {
+                for(let j = 0; j < column; j++) {
+                    const cells = document.createElement('div');
+                    cells.classList.add('boxes');
+                    outsideDiv.appendChild(cells);
+                }
+            }
+            const gridDisplay = document.getElementById('outside-container');
+            gridDisplay.style.display = 'grid';
+            gridDisplay.style.gridTemplateColumns = `repeat(${column}, 1fr)`;
+            gridDisplay.style.gridTemplateRows = `repeat(${rows}, 1fr)`;
+            const box = document.querySelectorAll('.boxes');
+            box.forEach(cells => {
+                cells.addEventListener('mouseenter', () => {
+                    cells.classList.add('hovered');
+                    handleHover.call(cells);
+                });
+
+                cells.addEventListener('mouseleave', () => {
+                    cells.classList.remove('hovered');
+                    handleHover.call(cells);
+                })
+
+                cells.addEventListener('mousedown', handleClick);
+                cells.addEventListener('mousemove', handleClick);
+            })
+            
+            clearBtn.addEventListener('click', () => {
+                box.forEach(cells => {
+                    if(cells.classList.contains('clicked') || cells.classList.contains('hovered')) {
+                        cells.classList.remove('clicked');
+                        cells.classList.remove('hovered');
+                    }
+                    cells.style.backgroundColor = 'white'; //clears the hover in the div
+                });
+            })
+        
+        }
+
+        function clearGrid() {
+            while(outsideDiv.firstChild) {
+                outsideDiv.removeChild(outsideDiv.firstChild);
+            }
+        }
+
+    
+
+        function handleHover() { 
+            if(this.classList.contains('clicked') || this.classList.contains('hovered')) {
+                this.style.backgroundColor = colorPicker.value;
+            }
+
+            else{
+                this.style.backgroundColor = 'white';
+            }
+        }
+
+        function handleClick(e) {
+            if(e.buttons !== 1) return;
+            this.classList.add('clicked');
+            if(this.classList.contains('clicked')) {
+                this.style.backgroundColor = colorPicker.value;
+            }
+        }
+
+        colorPicker.addEventListener('change', () => {
+            cell.forEach(cells => {
+                if(cells.classList.contain('clicked')) {
+                    cells.style.backgroundColor = colorPicker.value;
+                }
+            })
+        })
+        
+
+        
+
+    </script>
+</body>
+
+</html>

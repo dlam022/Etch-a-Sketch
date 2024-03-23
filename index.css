@@ -1,0 +1,61 @@
+ * {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    height: 100%;
+    width: auto;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100%;
+}
+
+.title {
+    text-align: center;
+    height: 5%;
+    padding-top: 10px;
+    background-color: darkcyan;
+}
+
+h1 {
+    font-size: 40px;
+    color: burlywood;
+}
+
+.helper-bar {
+    height: auto;
+    width: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    background-color: darkcyan;
+}
+
+input {
+    width: 50px;
+    height: 25px;
+}
+
+#clear-button {
+    width: 50px;
+    height: 25px;
+}
+
+#outside-container {
+    /* display: grid;
+    grid-template-columns: repeat(16, 1fr);
+    grid-template-rows: repeat(16, 1fr); */
+    border: 1px solid black; /*Add border around the grid */
+    margin: 0px auto 0px auto; /*Move div to the middle */
+    padding: 0px;
+    height: 90%;
+    width: 70%;
+}
+
+.boxes {
+    background-color: white;
+    border: 1px solid black;
+}
